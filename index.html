@@ -8,16 +8,33 @@ body{
 background:black;
 color:#00ff00;
 font-family:monospace;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-text-align:center;
+margin:0;
 overflow:hidden;
 }
 
-#text{
-font-size:40px;
+#center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+}
+
+h1{
+font-size:60px;
+color:red;
+display:none;
+}
+
+p{
+font-size:24px;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 </style>
 
@@ -25,33 +42,84 @@ font-size:40px;
 
 <body>
 
-<div id="text">Connecting to system...</div>
+<canvas id="matrix"></canvas>
+
+<div id="center">
+<p id="status">Connecting to system...</p>
+<h1 id="hack">YOU HAVE BEEN HACKED</h1>
+<p id="troll" style="display:none;">Relax 😂 This is just a troll.</p>
+</div>
 
 <script>
 
-let messages = [
+let steps = [
 "Connecting to device...",
 "Bypassing security...",
 "Accessing private files...",
-"Uploading data...",
-"",
-"⚠ YOU HAVE BEEN HACKED ⚠",
-"",
-"Just kidding 😆",
-"This is only a troll."
+"Downloading data..."
 ];
 
 let i = 0;
 
-function nextMessage(){
-if(i < messages.length){
-document.getElementById("text").innerHTML = messages[i];
+function next(){
+if(i < steps.length){
+document.getElementById("status").innerHTML = steps[i];
 i++;
-setTimeout(nextMessage,1500);
+setTimeout(next,1500);
+}else{
+document.getElementById("status").style.display="none";
+document.getElementById("hack").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("troll").style.display="block";
+},3000);
 }
 }
 
-setTimeout(nextMessage,2000);
+setTimeout(next,2000);
+
+
+// Matrix background
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+let letters = "01HACKED";
+letters = letters.split("");
+
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+let drops = [];
+
+for(let x=0;x<columns;x++)
+drops[x]=1;
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#0F0";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+let text=letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+
+}
+
+setInterval(draw,33);
 
 </script>
 
