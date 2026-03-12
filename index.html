@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>System Breach</title>
+<title>System Alert</title>
 
 <style>
 body{
@@ -10,24 +10,33 @@ color:#00ff00;
 font-family:monospace;
 margin:0;
 overflow:hidden;
+text-align:center;
 }
 
-#center{
+#box{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-text-align:center;
 }
 
 h1{
 font-size:60px;
 color:red;
 display:none;
+animation:flash 0.5s infinite;
 }
 
-p{
-font-size:24px;
+@keyframes flash{
+0%{opacity:1;}
+50%{opacity:0;}
+100%{opacity:1;}
+}
+
+#troll{
+display:none;
+font-size:28px;
+color:white;
 }
 
 canvas{
@@ -44,10 +53,10 @@ z-index:-1;
 
 <canvas id="matrix"></canvas>
 
-<div id="center">
-<p id="status">Connecting to system...</p>
-<h1 id="hack">YOU HAVE BEEN HACKED</h1>
-<p id="troll" style="display:none;">Relax 😂 This is just a troll.</p>
+<div id="box">
+<p id="status">Connecting to device...</p>
+<h1 id="hack">⚠ YOU HAVE BEEN HACKED ⚠</h1>
+<p id="troll">😂 Relax — this is just a troll!</p>
 </div>
 
 <script>
@@ -55,8 +64,8 @@ z-index:-1;
 let steps = [
 "Connecting to device...",
 "Bypassing security...",
-"Accessing private files...",
-"Downloading data..."
+"Accessing system files...",
+"Uploading private data..."
 ];
 
 let i = 0;
@@ -79,20 +88,21 @@ document.getElementById("troll").style.display="block";
 setTimeout(next,2000);
 
 
-// Matrix background
+// matrix background
 
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
 
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
 
-let letters = "01HACKED";
-letters = letters.split("");
+let letters="01HACK";
+letters=letters.split("");
 
-let fontSize = 14;
-let columns = canvas.width / fontSize;
-let drops = [];
+let fontSize=14;
+let columns=canvas.width/fontSize;
+
+let drops=[];
 
 for(let x=0;x<columns;x++)
 drops[x]=1;
@@ -115,11 +125,19 @@ if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
 drops[i]=0;
 
 drops[i]++;
+
 }
 
 }
 
 setInterval(draw,33);
+
+
+// screen shake
+
+setInterval(()=>{
+document.body.style.transform="translate("+(Math.random()*10-5)+"px,"+(Math.random()*10-5)+"px)";
+},80);
 
 </script>
 
