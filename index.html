@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>System Breach</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+overflow:hidden;
+}
+
+#text{
+font-size:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="text">Connecting to system...</div>
+
+<script>
+
+let messages = [
+"Connecting to device...",
+"Bypassing security...",
+"Accessing private files...",
+"Uploading data...",
+"",
+"⚠ YOU HAVE BEEN HACKED ⚠",
+"",
+"Just kidding 😆",
+"This is only a troll."
+];
+
+let i = 0;
+
+function nextMessage(){
+if(i < messages.length){
+document.getElementById("text").innerHTML = messages[i];
+i++;
+setTimeout(nextMessage,1500);
+}
+}
+
+setTimeout(nextMessage,2000);
+
+</script>
+
+</body>
+</html>
